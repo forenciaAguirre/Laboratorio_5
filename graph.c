@@ -27,29 +27,58 @@ int is_equal_string(void *key1, void *key2) {
  * ========================================= */
 
 Graph* createGraph() {
-    return NULL;
+    Graph* g = (Graph*)malloc(sizeof(Graph)) ;
+    if (!g) return NULL ;
+    g->adjacencyMap =  map_create(is_equal_string) ;
+    return g;
 }
 
 void addNode(Graph* g, const char* label) {
     if (!g || !label) return;
 
+    if (map_search(g->adjacencyMap, (void*)label) != NULL) return;
+
+    char* new_label = strdup(label) ;
+    List* edgesList = list_create() ;
+    map_insert(g->adjacencyMap, new_label, edgesList) ;
 }
 
 void addEdge(Graph* g, const char* src, const char* dest, int weight) {
     if (!g || !src || !dest) return;
 
+    addNode(g, src) ;
+    addNode(g, dest) ;
+
+    List* edgesList = (List*)map_search(g->adjacencyMap, (void*)src) ;
+    if (!edgesList) return ;
+
+    Edge* e = (Edge*)malloc(sizeof(Edge)) ;
+    if (!e) return ;
+    e->target = strdup(dest) ;
+    e->weight = weight ;
+    list_push_back(edgesList, e) ;
 }
 
 List* getEdges(Graph* g, const char* label) {
     if (!g || !label) return NULL;
 
-    return NULL;
+    return (List*)map_search(g->adjacencyMap, (void*)label);
 }
 
 int getWeight(Graph* g, const char* label1, const char* label2) {
     if (!g || !label1 || !label2) return -1;
 
-    // Si no existe el origen o terminamos de iterar sin encontrar el destino
+    List* edgesList = (List*)map_search(g->adjacencyMap, (void*)label1) ;
+    if (!edgesList) return -1 ;
+
+    Edge* e =  (Edge*)list_first(edgesList) ;
+    while (e != NULL) {
+        if (strcmp(e->target, label2) == 0) {
+            return e->weight ;
+        }
+        e = (Edge*)list_next(edgesList) ;
+    }
+    
     return -1; 
 }
 
@@ -57,8 +86,19 @@ int getWeight(Graph* g, const char* label1, const char* label2) {
 List* getAdjacentLabels(Graph* g, const char* label) {
     if (!g || !label) return NULL;
 
+    List* edgesList = (List*)map_search(g->adjacencyMap, (void*)label) ;
+    if (!edgesList) return NULL ;
 
-    return NULL; 
+    List* adjLabels = list_create() ;
+    if (!adjLabels) return NULL ;
+
+    Edge* e = (Edge*)list_first(edgesList) ;
+    while (e != NULL) {
+        list_push_back(adjLabels, e->target) ;
+        e = (Edge*)list_next(edgesList) ;
+    }
+
+    return adjLabels; 
 }
 
 void destroyGraph(Graph* g) {

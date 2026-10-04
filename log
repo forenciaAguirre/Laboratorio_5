@@ -6,3 +6,14 @@ Fri May  8 10:07:21 PM UTC 2026:
  tests:  0|6
 ========================================
 36e8bf5
+Sun Oct  4 09:02:10 PM UTC 2026: 
+ graph.c | 48 ++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 44 insertions(+), 4 deletions(-)
+Compilation failed
+In file included from test.c:5:
+graph.c: In function ‘addEdge’:
+graph.c:59:5: error: implicit declaration of function ‘list_push_back’; did you mean ‘list_pushBack’? [-Wimplicit-function-declaration]
+   59 |     list_push_back(edgesList, e) ;
+      |     ^~~~~~~~~~~~~~
+      |     list_pushBack
+d282f52
