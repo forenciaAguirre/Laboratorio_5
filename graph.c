@@ -94,7 +94,7 @@ List* getAdjacentLabels(Graph* g, const char* label) {
 
     Edge* e = (Edge*)list_first(edgesList) ;
     while (e != NULL) {
-        list_push_back(adjLabels, e->target) ;
+        list_pushBack(adjLabels, e->target) ;
         e = (Edge*)list_next(edgesList) ;
     }
 
