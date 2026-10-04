@@ -45,3 +45,15 @@ graph.c:75:21: error: implicit declaration of function ‘map_serch’; did you 
       |                     map_search
 graph.c:75:21: error: initialization of ‘MapPair *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
 791210a
+Sun Oct  4 09:28:49 PM UTC 2026: 
+ graph.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Compilation failed
+In file included from test.c:5:
+graph.c: In function ‘getWeight’:
+graph.c:75:21: error: implicit declaration of function ‘map_saerch’; did you mean ‘map_search’? [-Wimplicit-function-declaration]
+   75 |     MapPair* pair = map_saerch(g->adjacencyMap, (void*)label1) ;
+      |                     ^~~~~~~~~~
+      |                     map_search
+graph.c:75:21: error: initialization of ‘MapPair *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+cb6c35a
