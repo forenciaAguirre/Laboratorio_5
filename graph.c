@@ -49,8 +49,9 @@ void addEdge(Graph* g, const char* src, const char* dest, int weight) {
     addNode(g, src) ;
     addNode(g, dest) ;
 
-    List* edgesList = (List*)map_search(g->adjacencyMap, (void*)src) ;
-    if (!edgesList) return ;
+    MapPair* pair = map_search(g->adjacencyMap, (void*)src) ;
+    if (!pair) return ;
+    List* edgesList = (List*)pair->value ;
 
     Edge* e = (Edge*)malloc(sizeof(Edge)) ;
     if (!e) return ;
@@ -62,14 +63,18 @@ void addEdge(Graph* g, const char* src, const char* dest, int weight) {
 List* getEdges(Graph* g, const char* label) {
     if (!g || !label) return NULL;
 
-    return (List*)map_search(g->adjacencyMap, (void*)label);
+    MapPair* pair = map_search(g->adjacencyMap, (void*)label) ;
+    if (!pair) return NULL ;
+
+    return (List*)pair->value;
 }
 
 int getWeight(Graph* g, const char* label1, const char* label2) {
     if (!g || !label1 || !label2) return -1;
 
-    List* edgesList = (List*)map_search(g->adjacencyMap, (void*)label1) ;
-    if (!edgesList) return -1 ;
+    MapPair* pair = map_serch(g->adjacencyMap, (void*)label1) ;
+    if (!pair) return -1 ;
+    List* edgesList =  (List*)pair->value ;
 
     Edge* e =  (Edge*)list_first(edgesList) ;
     while (e != NULL) {
@@ -86,8 +91,9 @@ int getWeight(Graph* g, const char* label1, const char* label2) {
 List* getAdjacentLabels(Graph* g, const char* label) {
     if (!g || !label) return NULL;
 
-    List* edgesList = (List*)map_search(g->adjacencyMap, (void*)label) ;
-    if (!edgesList) return NULL ;
+    MapPair* pair = map_search(g->adjacencyMap, (void*)label) ;
+    if (!pair) return NULL ;
+    List* edgesList = (List*)pair->value ;
 
     List* adjLabels = list_create() ;
     if (!adjLabels) return NULL ;
