@@ -17,3 +17,14 @@ graph.c:59:5: error: implicit declaration of function ‘list_push_back’; did 
       |     ^~~~~~~~~~~~~~
       |     list_pushBack
 d282f52
+Sun Oct  4 09:09:26 PM UTC 2026: 
+ graph.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Compilation failed
+In file included from test.c:5:
+graph.c: In function ‘getAdjacentLabels’:
+graph.c:97:9: error: implicit declaration of function ‘list_push_back’; did you mean ‘list_pushBack’? [-Wimplicit-function-declaration]
+   97 |         list_push_back(adjLabels, e->target) ;
+      |         ^~~~~~~~~~~~~~
+      |         list_pushBack
+7a241ba
